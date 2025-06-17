@@ -1,0 +1,13 @@
+title: Formation SED 2025
+author: Nicolas Gensollen
+copyright: "2025"
+logo: 'images/logoAramis.png'
+description: Software development at Aramis
+
+execute:
+  execute_notebooks: "off"
+
+toc:
+  - file: Introduction
+  - file: Chapter 1 # The Aramis Github organization
+  - file: Chapter 2 # Principles

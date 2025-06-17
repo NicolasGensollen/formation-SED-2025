@@ -1,0 +1,5 @@
+name: formation_sed_2025
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
