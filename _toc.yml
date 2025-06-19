@@ -3,3 +3,5 @@ root: Introduction
 chapters:
   - file: notebooks/Chapter1
   - file: notebooks/Chapter2
+  - file: notebooks/Chapter3
+  - file: notebooks/Chapter4
