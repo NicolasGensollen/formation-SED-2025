@@ -1,0 +1,38 @@
+name: Build and deploy jupyter book
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  CACHE_NUMBER: 0  # increase to reset cache manually
+
+jobs:
+  build-and-deploy:
+    runs-on:
+      - self-hosted
+      - doc-runner
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v3
+        with:
+          path: ~/miniconda3/envs/now
+          key: conda-${{ hashFiles('environment.yml') }}-${{ env.CACHE_NUMBER }}
+        id: cache
+      - name: Update environment
+        run: conda env update -n now -f environment.yml
+        if: steps.cache.outputs.cache-hit != 'true'
+      - name: Build jupyter book
+        run: |
+          source ~/miniconda3/etc/profile.d/conda.sh
+          conda activate now
+          pip install -r requirements.txt
+          jupyter-book build .
+          conda deactivate
+      - name: Deploy jupyter book in webserver
+        run: |  
+          ls ./
+          scp -r _build/html/* aramislab:/srv/local/workshops/SED/2025/
